@@ -68,5 +68,10 @@ class Http {
 let http = new Http();
 export default http;
 
+/**
+*调用时：
+*	http.post('getData.php',params);
+*	http.get('getData.php',params);
+*/
 
 
