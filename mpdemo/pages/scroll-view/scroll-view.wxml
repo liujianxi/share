@@ -1,0 +1,16 @@
+<!--index.wxml-->
+<view class="container">
+    <scroll-view scroll-y style="height: 100vh;" bindscroll="scroll">
+        <view class="content">
+            这是一段文字
+        </view>
+        <view class="news static-news"><text>今日新闻列表</text></view>
+        <view class="news fix-news" wx:if="{{fixTop<scrollTop}}"><text>今日新闻列表</text></view>
+        <view class="news-list">
+            <view wx:for="{{10}}" wx:key="{{index}}">
+                {{index+1}}　这是一个小程序
+            </view>
+        </view>
+    </scroll-view>
+</view>
+  
