@@ -68,4 +68,4 @@ Page({
 })
 ```
 总结：ios手机滑动时比较流畅，安卓手机滑的慢点的话完全ok，滑的快点会有些延迟，暂时没找到啥好方法，如有好的实现方法，望各位赐教。
-[sroll-view实现部分][1],[普通view实现部分][2]
+sroll-view实现部分在pages/sroll-view里面,普通view实现部分在pages/fixdemo里面。
