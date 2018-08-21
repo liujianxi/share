@@ -17,7 +17,7 @@
 ```
 ## js里面 ##
 
-1.使用scroll-view组件,wxml里面固定目标处包在<scroll-view scroll-y style="height: 100vh;" bindscroll="scroll"></scroll-view里面
+1.使用scroll-view组件,wxml里面固定目标处包在<scroll-view scroll-y style="height: 100vh;" bindscroll="scroll"></scroll-view>里面
 
 ```
 Page({
