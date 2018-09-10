@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>debounce</title>
+</head>
+<body>
+	<div>
+		<label>
+			去抖前：<input type="text" placeholder="请输入" id="unDebounce">
+		</label>
+	</div>
+	<br />
+	<div>
+		<label>
+			去抖后：<input type="text" placeholder="请输入" id="debounce">
+		</label>
+	</div>
+	<script type="text/javascript">
+		function getData(content) {
+		  console.log('this is：' + content);
+		}
+		//去抖前
+		let inputa = document.querySelector('#unDebounce');
+		inputa.addEventListener('keyup', function (e) {
+		    getData(e.target.value);
+		})
+		//去抖后
+		let inputb = document.querySelector('#debounce');
+		let getDebounce = debounce(getData, 500)
+		inputb.addEventListener('keyup', function (e) {
+			getDebounce(e.target.value);
+		})
+		function debounce(fun, delay) {
+		    return function (args) {
+		        let that = this;
+		        let _args = args;
+		        clearTimeout(fun.id);
+		        fun.id = setTimeout(function () {
+		            fun.call(that, _args);
+		        }, delay)
+		    }
+		}
+	</script>
+</body>
+</html>
