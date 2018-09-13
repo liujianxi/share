@@ -1,0 +1,7 @@
+<!--index.wxml-->
+<view class="container">
+	<view class="content">
+		<view wx:if="{{a_flag}}" bindtap="changeCard" class="card card-blue" style="width:{{a_width}}%">A</view>
+		<view wx:if="{{b_flag}}" bindtap="changeCard" class="card card-red" style="width:{{b_width}}%">B</view>
+	</view>
+</view>

@@ -1,8 +1,11 @@
 <template>
 	<div class="home">
+		<div class="btn left-btn" @click="preBtn()">&lt;</div>
+		<div class="btn right-btn" @click="nextBtn()">&gt;</div>
 		<div class="content">
 			<ul :style="{'left': -500*activeNum+'px',}">
-				<li v-for="(item,index) in imgData"><img :src="item.src" /></li>
+				<!-- <li v-for="(item,index) in imgData"><img :src="item.src" /></li> -->
+				<li v-for="(item,index) in imgData">{{item.src}}</li>
 			</ul>
 		</div>
 	</div>
@@ -21,18 +24,18 @@
 				timer: '',
 				a:a,
 				imgData: [{
-					src: a,
+					src: 1,
 				}, {
-					src: b,
+					src: 2,
 				},{
-					src: c,
+					src: 3,
 				},{
-					src: d,
+					src: 4,
 				}]
 			}
 		},
 		created() {
-			this.timeStart();
+			// this.timeStart();
 		},
 		activated() {
 
@@ -43,11 +46,21 @@
 				self.timer = setInterval(res => {
 					self.activeNum += 1;
 					console.log(self.activeNum);
-					if(self.activeNum==3){
-						self.imgData.shift()
-					}
+					// let preImg = self.imgData.shift();
+					// self.imgData.push(preImg);
+					// if(self.activeNum==4){
+					// 	self.activeNum = 0;
+					// }
 				}, 3000)
 			},
+			preBtn(){
+				let self = this;
+				self.activeNum -= 1;
+			},
+			nextBtn(){
+				let self = this;
+				self.activeNum += 1;
+			}
 		}
 	}
 </script>
@@ -59,12 +72,35 @@
 	h2 {
 		font-weight: normal;
 	}
+	.home{
+		position: relative;
+		>.btn{
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			font-size: 20px;
+			color: red;
+			width: 100px;
+			height: 100px;
+			line-height: 100px;
+			text-align: center;
+			cursor: pointer;
+			border: 1px solid red;
+		}
+		.left-btn{
+			left: 100px;
+		}
+		.right-btn{
+			right: 100px;
+		}
+	}
 	.content{
 		width: 500px;
-		height: 379px;
+		height: 375px;
 		margin: 0 auto;
 		position: relative;
 		overflow: hidden;
+		border: 1px solid red;
 	}
 	ul {
 		position: absolute;
@@ -73,10 +109,15 @@
 		display: flex;
 		display: -webkit-flex;
 		/*animation: move 1s linear;*/
-		transition: all 1s linear;
+		transition: all .2s linear;
 		li {
 			flex: 1;
 			-wekbit-flex: 1;
+			width: 500px;
+			height: 375px;
+			line-height: 375px;
+			color: black;
+			font-size: 18px;
 		}
 	}
 	a {

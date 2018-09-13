@@ -1,0 +1,15 @@
+.content{
+	width: 300rpx;
+	height: 300rpx;
+	position: relative;
+}
+.card{
+	height: 100%;
+	margin: 0 auto;
+}
+.card-red{
+	background: red;
+}
+.card-blue{
+	background: blue;
+}
