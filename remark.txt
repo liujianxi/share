@@ -1,0 +1,54 @@
+/*********** vscode  setting ***********/
+
+{
+    "editor.fontSize": 18,
+    "terminal.integrated.fontSize": 16,
+    "view-in-browser.customBrowser": "chrome",
+	"window.zoomLevel": 0,
+    "workbench.statusBar.feedback.visible": false,
+	"vetur.validation.template": false,
+	"files.associations": {
+		"*.wpy": "vue",
+		"*.wxss": "css",
+		"*.html": "html",
+		"*.ux": "html"
+	},
+    "[javascript]": {
+        // 按 "Tab" 时插入空格。该设置在 `editor.detectIndentation` 启用时根据文件内容进行重写。
+        "editor.insertSpaces": true,
+        // 一个制表符等于的空格数。该设置在 `editor.detectIndentation` 启用时根据文件内容进行重写。
+        "editor.tabSize": 4
+	},
+	"[wpy]": {
+        // 按 "Tab" 时插入空格。该设置在 `editor.detectIndentation` 启用时根据文件内容进行重写。
+        "editor.insertSpaces": true,
+        // 一个制表符等于的空格数。该设置在 `editor.detectIndentation` 启用时根据文件内容进行重写。
+        "editor.tabSize": 4
+    },
+    "editor.insertSpaces": false,
+	"editor.detectIndentation": false,
+	"go.gopath": "F:\\demo",
+	"go.buildOnSave":true,
+	"go.lintOnSave":true,
+	"go.vetOnSave":true,
+	"go.buildTags":"",
+	"go.buildFlags":[],
+	"go.lintFlags":[],
+	"go.vetFlags":[],
+	"go.coverOnSave":false,
+	"go.useCodeSnippetsOnFunctionSuggest":false,
+	"go.formatOnSave":true,
+	"go.formatTool":"goreturns",
+	"go.goroot":"C:\\Go",
+	"go.gocodeAutoBuild": false,
+	"liveServer.settings.donotShowInfoMsg": true,
+	"liveServer.settings.donotVerifyTags": true,
+	"[markdown]": {},
+	"python.pythonPath": "C:\\Program Files\\Python36\\python.exe",
+	"[vue]": {
+		
+	},
+	"editor.tabSize": 4,
+	"explorer.confirmDelete": false,
+	"workbench.startupEditor": "welcomePage",
+}
