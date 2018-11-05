@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8>
+    <meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1">
+    <meta name=viewport content="width=device-width,initial-scale=1,user-scalable=no,viewport-fit=cover">
+    <title data-vue-meta="true"></title>
+</head>
+
+<body>
+    <script>
+        let str = 'JSESSIONID=58ab989e-a69e-43c4-b2d3-20bb72029e6b; Path=/share-hospJSESSIONID=58;ital; HttpOnly,rememberMe=deleteMe;';
+        let pattern = /\bJSESSIONID=[\w\d-]+;/g;
+        let a = str.match(pattern);
+        console.log(a);
+    </script>
+</body>
+</html>
