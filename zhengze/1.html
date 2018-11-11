@@ -13,7 +13,25 @@
         let str = 'JSESSIONID=58ab989e-a69e-43c4-b2d3-20bb72029e6b; Path=/share-hospJSESSIONID=58;ital; HttpOnly,rememberMe=deleteMe;';
         let pattern = /\bJSESSIONID=[\w\d-]+;/g;
         let a = str.match(pattern);
-        console.log(a);
+        // console.log(a);
+        /**
+        \d 匹配数字
+        * 0个或者更多
+        ^一行的开头
+        \w  匹配word(数字、字母)
+        + 1个或更多，至少1个
+        $一行的结尾
+
+        \W 匹配非word(数字、字母)
+        ? 0个或1个,一个Optional
+        \b 单词"结界"(word bounds)
+        \s 匹配white space(包括空格、tab等)
+        {min,max}出现次数在一个范围内
+        \S 匹配非white space(包括空格、tab等)
+        {n}匹配出现n次的
+
+        . 匹配任何，任何的字符
+        **/
     </script>
 </body>
 </html>
