@@ -95,5 +95,5 @@ npm run build
 ## 写在最后
 ```
 jenkins的插件成千上万，功能十分强大，目前实现了自动构建以及邮件提醒功能。
-本次使用的demo地址为[点这里](https://github.com/liujianxi/jenkins-demo)
+本次使用的demo地址为：https://github.com/liujianxi/jenkins-demo
 ```
