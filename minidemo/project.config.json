@@ -12,7 +12,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.2.3",
-	"appid": "wx3a28fabfad00e04d",
+	"appid": "",
 	"projectname": "minidemo",
 	"debugOptions": {
 		"hidedInDevtools": []
