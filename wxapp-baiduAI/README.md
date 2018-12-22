@@ -1,5 +1,5 @@
 **小程序--人脸识别功能（百度ai）**
-```
+```html
 文档中心：https://ai.baidu.com/docs#/Begin/a2bbf4b2
 ```
 ## 接入流程
@@ -92,6 +92,6 @@ getBaiduToken().then((res) => {
 
 4. 结果如下：
 
-![baidu-ai](./images/pic1.png)
+![baidu-ai](./images/pic.png)
 
 哼～一点都不准
