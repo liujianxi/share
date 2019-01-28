@@ -22,6 +22,6 @@
 
 ## 总结
 ```python
-def 2019_flag(self):
+def flag_2019(self):
     print 'keep moving----'
 ```
