@@ -11,7 +11,7 @@ ffmpeg -i input.mp4
 ```
 
 ## 多个mp4合成一个mp4文件
-1. concat(不适用于mp4)
+1. concat(不适用于mp4)
 ```python
 ffmpeg -i "concat:input1|input2" -codec copy output
 ```
@@ -25,7 +25,7 @@ ffmpeg -i "concat:input1|input2" -codec copy output
     ffmpeg -i "concat:input1.ts|input2.ts|input3.ts" -c copy -bsf:a aac_adtstoasc -movflags +faststart output.mp4
     ```
 
-## 一个mp4切割成多个mp4文件
+## 一个mp4切割成多个mp4文件
 ```python
 ffmpeg -i input.mp4 -vf "crop=out_w:out_h:x:y" -y output.mp4
 ```
