@@ -7,9 +7,9 @@
 2、taro init taro-demo
 3、cd taro-demo
 4、
-（npm | yarn） run dev:wxapp（微信小程序）
-（npm | yarn） run dev:swan（百度小程序）
-（npm | yarn） run dev:alipay（支付宝小程序）
+（npm | yarn） run dev:wxapp（微信小程序）
+（npm | yarn） run dev:swan（百度小程序）
+（npm | yarn） run dev:alipay（支付宝小程序）
 （npm | yarn） run dev:tt（字节跳动）
 （npm | yarn） run dev:h5（h5页面）
 5、
