@@ -2,10 +2,11 @@
 	<div class="home">
 		<div class="btn left-btn" @click="preBtn()">&lt;</div>
 		<div class="btn right-btn" @click="nextBtn()">&gt;</div>
+		<p>{{activeNum}}</p>
 		<div class="content">
-			<ul :style="{'left': -500*activeNum+'px',}">
-				<!-- <li v-for="(item,index) in imgData"><img :src="item.src" /></li> -->
-				<li v-for="(item,index) in imgData">{{item.src}}</li>
+			<ul :style="{'left': -500*activeNum+'px',}" :class="moveFlag?'move':''">
+				<li v-for="(item,index) in imgData" :key="index"><img :src="item.src" /></li>
+				<!-- <li v-for="(item,index) in imgData" :key="index">{{item.src}}</li> -->
 			</ul>
 		</div>
 	</div>
@@ -17,25 +18,35 @@
 	import c from '../assets/3.jpg'
 	import d from '../assets/4.jpg'
 	export default {
-		name: 'HelloWorld',
+		name: 'home',
 		data() {
 			return {
-				activeNum: 0,
+				activeNum: 1,
+				moveFlag: true,
 				timer: '',
 				a:a,
 				imgData: [{
-					src: 1,
+					src: a,
 				}, {
-					src: 2,
+					src: b,
 				},{
-					src: 3,
+					src: c,
 				},{
-					src: 4,
-				}]
+					src: d,
+				}],
+				dataLength: '',
 			}
 		},
 		created() {
-			// this.timeStart();
+			let self = this;
+			let imgData = self.imgData;
+			self.dataLength = imgData.length;
+			let start_info = imgData[0];
+			let end_info = imgData[imgData.length-1];
+			imgData.unshift(end_info);
+			imgData.push(start_info);
+			console.log(imgData);
+			self.timeStart();
 		},
 		activated() {
 
@@ -43,23 +54,47 @@
 		methods: {
 			timeStart() {
 				let self = this;
+				clearInterval(self.timer);
 				self.timer = setInterval(res => {
+					self.moveFlag = true;
 					self.activeNum += 1;
-					console.log(self.activeNum);
-					// let preImg = self.imgData.shift();
-					// self.imgData.push(preImg);
-					// if(self.activeNum==4){
-					// 	self.activeNum = 0;
-					// }
+					self.moveMent();
 				}, 3000)
 			},
 			preBtn(){
 				let self = this;
+				self.moveFlag = true;
 				self.activeNum -= 1;
+				clearInterval(self.timer);
+				self.moveMent('click');
 			},
 			nextBtn(){
 				let self = this;
+				self.moveFlag = true;
 				self.activeNum += 1;
+				clearInterval(self.timer);
+				self.moveMent('click');
+				console.log(self.activeNum);
+			},
+			moveMent(str){
+				let self = this;
+				console.log(self.activeNum);
+				if (self.activeNum == self.dataLength + 1){
+					setTimeout(res=>{
+						self.moveFlag = false;
+						self.activeNum = 1;
+						
+					}, 200)
+				}
+				if(self.activeNum == 0){
+					setTimeout(res=>{
+						self.moveFlag = false;
+						self.activeNum = self.dataLength;
+					}, 200)
+				}
+				if(str === 'click'){
+					self.timeStart();
+				}
 			}
 		}
 	}
@@ -108,8 +143,6 @@
 		top: 0;
 		display: flex;
 		display: -webkit-flex;
-		/*animation: move 1s linear;*/
-		transition: all .2s linear;
 		li {
 			flex: 1;
 			-wekbit-flex: 1;
@@ -119,6 +152,9 @@
 			color: black;
 			font-size: 18px;
 		}
+	}
+	.move{
+		transition: all .2s linear;
 	}
 	a {
 		color: #42b983;
