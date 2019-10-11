@@ -1,5 +1,5 @@
 ## 前端面试题库
-### 1、介绍下 BFC 及其应用
+## 1、介绍下 BFC 及其应用
 ```
 - BFC 即 Block Formatting Contexts (块级格式化上下文),是页面盒模型布局中的一种 CSS 渲染模式，相当于一个独立的容器，里面的元素和外部的元素相互不影响。
 - 创建 BFC 的方式有：
@@ -10,7 +10,7 @@ overflow 除了 visible 以外的值 (hidden、auto、scroll)
 display 为 inline-block、table-cells、flex
 ```
 #### BFC 特性
-1、同一个 BFC 下外边距会发生折叠。
+1）同一个 BFC 下外边距会发生折叠。
 
 如下例子两个盒子之间距离只有100px，这不是 CSS 的 bug，我们可以理解为一种规范，如果想要避免外边距的重叠，可以将其放在不同的 BFC 容器中。
 ```html
@@ -53,7 +53,7 @@ display 为 inline-block、table-cells、flex
     </div>
 </body>
 ```
-2、BFC 可以包含浮动的元素（清除浮动）
+2）BFC 可以包含浮动的元素（清除浮动）
 ```html
 <head>
     <style>
@@ -77,7 +77,7 @@ display 为 inline-block、table-cells、flex
     </div>
 </body>
 ```
-3、BFC 可以阻止元素被浮动元素覆盖
+3）BFC 可以阻止元素被浮动元素覆盖
 
 下面是一个文字环绕效果
 ```html
@@ -114,3 +114,77 @@ p{
 ![jenkins-init](./images/WX20191010-102351.png)
 
 这个方法可以用来实现两列自适应布局,左边宽度固定，右边自适应宽度
+
+## 2、判断数组的方法，请分别介绍它们之间的区别和优劣
+```js
+Object.prototype.toString.call()、instanceof、Array.isArray()以及typeof
+```
+1）Object.prototype.toString.call()
+
+每一个继承 Object 的对象都有 toString 方法，如果 toString 方法没有重写的话，会返回 [object type]，其中 type 为对象的类型。但当除了 Object 类型的对象外，其他类型直接使用 toString 方法时，会直接返回都是内容的字符串，所以我们需要使用call或者apply方法来改变toString方法的执行上下文。
+```js
+const an = ['Hello','World'];
+an.toString(); // "Hello,World"
+Object.prototype.toString.call(an); // "[object Array]"
+```
+这种方法对于所有基本的数据类型都能进行判断，即使是 null 和 undefined 。
+但是无法区分自定义对象类型，自定义类型可以采用instanceof区分
+```js
+console.log(Object.prototype.toString.call("this"));//[object String]
+console.log(Object.prototype.toString.call(12));//[object Number]
+console.log(Object.prototype.toString.call(true));//[object Boolean]
+console.log(Object.prototype.toString.call(undefined));//[object Undefined]
+console.log(Object.prototype.toString.call(null));//[object Null]
+console.log(Object.prototype.toString.call({name: "this"}));//[object Object]
+console.log(Object.prototype.toString.call(function(){}));//[object Function]
+console.log(Object.prototype.toString.call([]));//[object Array]
+console.log(Object.prototype.toString.call(new Date));//[object Date]
+console.log(Object.prototype.toString.call(/\d/));//[object RegExp]
+function Person(){};
+console.log(Object.prototype.toString.call(new Person));//[object Object]
+```
+Object.prototype.toString.call() 常用于判断浏览器内置对象。
+
+2）instanceof
+
+instanceof 的内部机制是通过判断对象的原型链中是不是能找到类型的 prototype。
+
+使用 instanceof判断一个对象是否为数组，instanceof 会判断这个对象的原型链上是否会找到对应的 Array 的原型，找到返回 true，否则返回 false。
+
+但 instanceof 只能用来判断对象类型，原始类型不可以。并且所有对象类型 instanceof Object 都是 true。
+```js
+instanceof Array; // true
+instanceof Object; // true
+'a' instanceof String; //false
+```
+3）Array.isArray()
+
+- 功能：用来判断对象是否为数组
+- instanceof 与 isArray
+
+当检测Array实例时，Array.isArray 优于 instanceof ，因为 Array.isArray 可以检测出 iframes
+```js
+var iframe = document.createElement('iframe');
+document.body.appendChild(iframe);
+xArray = window.frames[window.frames.length-1].Array;
+var arr = new xArray(1,2,3); // [1,2,3]
+
+// Correctly checking for Array
+Array.isArray(arr);  // true
+Object.prototype.toString.call(arr); // true
+// Considered harmful, because doesn't work though iframes
+arr instanceof Array; // false
+```
+- Array.isArray() 与 Object.prototype.toString.call()<br />
+Array.isArray()是ES5新增的方法，当不存在 Array.isArray() ，可以用 Object.prototype.toString.call() 实现。
+```js
+if (!Array.isArray) {
+    Array.isArray = function(arg) {
+        return Object.prototype.toString.call(arg) === '[object Array]';
+    };
+}
+```
+4）typeof
+```js
+typeof 只能检测基本数据类型，包括boolean、undefined、string、number、symbol，而null、Array、Object ,使用typeof检测出来都是Object，无法检测具体是哪种引用类型。
+```
