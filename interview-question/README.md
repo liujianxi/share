@@ -188,3 +188,131 @@ if (!Array.isArray) {
 ```js
 typeof 只能检测基本数据类型，包括boolean、undefined、string、number、symbol，而null、Array、Object ,使用typeof检测出来都是Object，无法检测具体是哪种引用类型。
 ```
+
+## 3、怎么让一个div水平垂直居中
+```html
+<div class="parent">
+    <div class="child"></div>
+</div>
+```
+1）使用position + transform，不定宽高时
+```css
+.parent{
+    position: relative;
+}
+.child{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+```
+
+2）使用position + transform，有宽高时
+```css
+.parent{
+    position: relative;
+}
+.child{
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -50px;
+    margin-top: -50px;
+}
+```
+3）使用flex
+```css
+.parent{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+```
+或者
+```css
+.parent{
+    display: flex;
+    align-items: center;
+}
+.child{
+    margin: 0 auto;
+}
+```
+或者
+```css
+.parent{
+    display: flex;
+}
+.child{
+    margin: auto;
+}
+```
+
+4）使用position
+```css
+.parent{
+    position: relative;
+}
+.child{
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}
+```
+5）使用grid
+```css
+.parent{
+    display: grid;
+}
+.child{
+    justify-self: center;
+    align-self: center;
+}
+```
+6）使用table
+```css
+.parent{
+    display: table;
+}
+.child{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+```
+或者
+```css
+.parent {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+.child {
+    display: inline-block;
+}
+```
+
+7）使用伪类
+```css
+.parent{
+    font-size: 0;
+    text-align: center;
+}
+.parent::before {
+    content: "";
+    display: inline-block;
+    width: 0;
+    height: 100%;
+    vertical-align: middle;
+}
+.child{
+    display: inline-block;
+    vertical-align: middle;
+}
+```
