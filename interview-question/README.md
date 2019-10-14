@@ -316,3 +316,104 @@ typeof 只能检测基本数据类型，包括boolean、undefined、string、num
     vertical-align: middle;
 }
 ```
+
+## 4、下面的代码打印什么内容，为什么？
+```js
+var b = 10;
+(function b(){
+    b = 20;
+    console.log(b); 
+})();
+```
+正常模式下：
+```js
+var b = 10;
+(function b() {
+   // 内部作用域，会先去查找是有已有变量b的声明，有就直接赋值20，确实有了呀。发现了具名函数 function b(){}，拿此b做赋值；
+   // IIFE的函数无法进行赋值（内部机制，类似const定义的常量），所以无效。
+  // （这里说的“内部机制”，想搞清楚，需要去查阅一些资料，弄明白IIFE在JS引擎的工作方式，堆栈存储IIFE的方式等）
+    b = 20;
+    console.log(b); // [Function b]
+    console.log(window.b); // 10，不是20
+})();
+```
+严格模式下会报错：
+```js
+var b = 10;
+(function b() {
+  'use strict'
+  b = 20;
+  console.log(b)
+})() // "Uncaught TypeError: Assignment to constant variable."
+```
+有window：
+```js
+var b = 10;
+(function b() {
+    window.b = 20; 
+    console.log(b); // [Function b]
+    console.log(window.b); // 20是必然的
+})();
+```
+有var：
+```js
+var b = 10;
+(function b() {
+    var b = 20; // IIFE内部变量
+    console.log(b); // 20
+   console.log(window.b); // 10 
+})();
+```
+## 5、下面的代码打印什么内容，为什么？
+```js
+var a = 10;
+(function () {
+    console.log(a)
+    a = 5
+    console.log(window.a)
+    var a = 20;
+    console.log(a)
+})()
+```
+先说结果
+
+依次为：undefined，10，20
+```js
+var a = 10;
+(function () {
+    //函数里面重新定义了a，变量提升，预解析
+    console.log(a);//undefined
+    a = 5;
+    console.log(window.a);//10，a是函数局部变量
+    var a = 20;
+    console.log(a);//当然20
+})()
+console.log(a);//10，相当于window.a
+```
+换成这样：
+```js
+var a = 10;
+(function () {
+    //函数里面没有重新定义
+    console.log(a);//10
+    a = 5;
+    console.log(window.a);//5
+    a = 20;
+    console.log(a);//当然20
+})()
+console.log(a);//20，相当于window.a
+```
+换成这样：
+```js
+var a = 10;
+function b() {
+    //函数里面重新定义了a，变量提升，预解析
+    console.log(a);//undefined
+    a = 5;
+    console.log(window.a);//10，a是函数局部变量
+    var a = 20;
+    console.log(a);//当然20
+}
+b();
+console.log(a);//10，相当于window.a
+```
