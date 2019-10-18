@@ -103,7 +103,7 @@ display 为 inline-block、table-cells、flex
     </section>
 </body>
 ```
-![jenkins-init](./images/WX20191010-101541.png)
+![interview-init](./images/WX20191010-101541.png)
 
 给p元素添加overflow: hidden
 ```html
@@ -111,7 +111,7 @@ p{
     overflow: hidden;
 }
 ```
-![jenkins-init](./images/WX20191010-102351.png)
+![interview-init](./images/WX20191010-102351.png)
 
 这个方法可以用来实现两列自适应布局,左边宽度固定，右边自适应宽度
 
@@ -421,7 +421,7 @@ console.log(a);//10，相当于window.a
 
 ### 先来看下浏览器的渲染过程
 
-![jenkins-init](./images/browser-render.png)
+![interview-init](./images/browser-render.png)
 
 从上面这个图上，我们可以看到，浏览器渲染过程如下：
 ```
@@ -435,7 +435,7 @@ console.log(a);//10，相当于window.a
 
 ### 生成渲染树
 
-![jenkins-init](./images/css-render.png)
+![interview-init](./images/css-render.png)
 为了构建渲染树，浏览器主要完成了以下工作：
 
 1. 从DOM树的根节点开始遍历每个可见节点。
@@ -531,3 +531,102 @@ el.style.borderRight = '2px';
     el.className += ' active';
     ```
 具体参考：https://muyiy.cn/question/browser/22.html
+
+## 7、文字两端对齐
+```html
+<div>姓名</div>
+<div>手机号码</div>
+<div>账号</div>
+<div>密码</div>
+```
+```css
+div {
+    margin: 10px 0; 
+    width: 100px;
+    border: 1px solid red;
+    text-align: justify;
+    text-align-last: justify;
+}
+```
+![interview-init](./images/WX20191017-103128.png)
+
+## 8、['1', '2', '3'].map(parseInt)的结果是什么？
+```
+先说结果：
+['1', NaN, NaN]
+为什么不是['1', '2', '3']呢，下面开始分析
+```
+- map() 方法返回一个新数组，数组中的元素为原始数组元素调用函数处理后的值。
+
+- map() 方法按照原始数组元素顺序依次处理元素。
+
+map(parseInt)其实是：
+```js
+map(function(item, index){
+    return parseInt(item, index);
+})
+```
+即依次运行的是：
+```js
+parseInt('1', 0);
+parseInt('2', 1);
+parseInt('3', 2);
+```
+### parseInt的用法
+
+- parseInt(string, radix) 函数可解析一个字符串，并返回一个整数。
+- 当参数 radix 的值为 0，或没有设置该参数时，parseInt() 会根据 string 来判断数字的基数。
+- radix 可选。表示要解析的数字的基数。该值介于 2 ~ 36 之间。
+
+所以：
+parseInt('1', 0);//'1'
+parseInt('2', 1);//NaN
+parseInt('3', 2);//NaN，由于2进制中没有3
+
+## 9、写出如下代码的打印结果（京东）
+```js
+function changeObjProperty(o) {
+    o.siteUrl = "http://www.baidu.com";
+    o = new Object();
+    o.siteUrl = "http://www.google.com";
+} 
+let webSite = new Object();
+changeObjProperty(webSite);
+console.log(webSite.siteUrl);
+```
+此题咋看小问题，其实暗藏玄机。
+先说答案：
+```
+console.log(webSite.siteUrl);//"http://www.baidu.com"
+```
+复盘如下：
+
+```js
+function changeObjProperty(o) {
+    //o是形参，对象的引用，依旧指向原地址，相当于 var o = webSite;赋值改变对象的属性
+    o.siteUrl = "http://www.baidu.com";
+    //变量o指向新的地址 以后的变动和旧地址无关，题目打印的是外部webSite.siteUrl
+    o = new Object();
+    o.siteUrl = "http://www.google.com";
+}
+```
+
+将题目改成如下：
+```js
+function changeObjProperty(o) {
+    o.siteUrl = "http://www.baidu.com";
+    o = new Object();
+    o.siteUrl = "http://www.google.com";
+    return o;
+} 
+let webSite = new Object();
+changeObjProperty(webSite);
+console.log(webSite.siteUrl);
+let newSite = changeObjProperty(webSite);
+console.log(newSite.siteUrl);
+```
+此时打印结果如下：
+```j
+console.log(webSite.siteUrl);//"http://www.baidu.com"
+console.log(newSite.siteUrl);//"http://www.google.com"
+```
