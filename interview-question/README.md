@@ -718,3 +718,99 @@ ajax.onreadystatechange = function () {
     }
 };
 ```
+
+## 13、说说vue中key的原理
+```
+便于diff算法的更新，key的唯一性，能让算法更快的找到需要更新的dom，需要注意的是，key要唯一，不然会出现很隐蔽性的更新问题。
+```
+
+## 14、vue双向绑定的原理是什么？
+```
+双向数据绑定是基于Object.defineProperty()重新定义get和set方法实现的。修改触发set方法赋值，获取触发get方法取值，并通过数据劫持发布信息。
+```
+```js
+let obj = {
+    name: 't-one',
+    location: {x: 100, y: 200}
+}
+
+function render(){
+    console.log('渲染视图');
+}
+
+function observe(data){
+    for(let key in data){
+        defineData(data, key, data[key]);
+    }
+}
+
+function defineData(data, key, value){
+    Object.defineProperty(data, key, {
+        get(){
+            return value;
+        },
+        set(newValue){
+            render();
+            value = newValue;
+        }
+    })
+}
+observe(obj);
+obj.name = 'liu';
+console.log(obj.name);//liu
+```
+一个简易的双向绑定
+```js
+<input type="text" id="input">
+<div id="content"></div>
+<script>
+    function obersver(data){
+        for(let i in data){
+            defineData(data,i,data[i]);
+        }
+    }
+    function defineData(data,key,value){
+        Object.defineProperty(data,key,{
+            get:function(){
+                return value;
+            },
+            set: function(newValue){
+                console.log('调用了set====');
+                value = newValue;
+                document.getElementById('content').innerHTML = newValue;
+            }
+        })
+    }
+    let obj = {};
+    document.addEventListener('keyup',function(e){
+        obersver(obj);
+        obj.text = e.target.value;
+        console.log(obj.text);
+    })
+</script>
+```
+
+## 15、vue中$nextTick有什么作用？
+```js
+处理数据动态变化后，dom还未及时更新的问题。$nextTick就可以获取到数据更新后最新的dom变化
+```
+
+## 16、浅谈前端工程化、模块化、组件化
+
+#### 前端工程化
+```js
+1、将前端项目当成一项系统工程进行分析、组织和构建从而达到项目结构清晰、分工明确、团队配合默契、开发效率提高的目的
+2、工程化思维就是“结构、样式和动作分离”。如目录分为assets,components,router,util
+```
+
+#### 前端模块化
+```js
+1、可以简单的认为模块化和组件化是工程化的表现形式
+2、JS模块化方案很多有AMD/CommonJS/UMD/ES6 Module等,CSS模块化开发大多是在less、sass、stylus
+```
+
+#### 前端组件化
+```js
+1、组件化将页面视为一个容器,页面上各个独立部分例如:头部、导航、焦点图、侧边栏、底部等视为独立组件,不同的页面根据内容的需要,去盛放相关组件即可组成完整的页面。
+2、模块化和组件化一个最直接的好处就是复用
+```
