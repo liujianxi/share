@@ -814,3 +814,115 @@ console.log(obj.name);//liu
 1、组件化将页面视为一个容器,页面上各个独立部分例如:头部、导航、焦点图、侧边栏、底部等视为独立组件,不同的页面根据内容的需要,去盛放相关组件即可组成完整的页面。
 2、模块化和组件化一个最直接的好处就是复用
 ```
+
+## 17、css中link与@import的区别
+```css
+1、@import是 CSS 提供的语法规则，只有导入样式表的作用；link是HTML提供的标签，不仅可以加载 CSS 文件，还可以定义 RSS、rel 连接属性等。
+2、加载页面时，link引入的CSS被同时加载，@import引入的CSS将在页面加载完毕后加载。
+3、link标签作为HTML元素，不存在兼容性问题，而@import是CSS2.1才有的语法，故老版本浏览器（IE5之前）不能识别。
+4、可以通过JS操作DOM，来插入link标签改变样式；由于DOM方法是基于文档的，无法使用@import方式插入样式。
+```
+## 18、请写一个正则15-20位的大写字母或数字
+```js
+var reg = /[^A-Z\d]{15,20}/;
+```
+
+## 19、如下代码输出是什么
+```js
+var fullName = 'a';
+var obj = {
+    fullName: 'b',
+    prop:{
+        fullName: 'c',
+        getFullName: function(){
+            console.log(this);
+            return this.fullName
+        }
+    }
+}
+console.log(obj.prop.getFullName());
+var test = obj.prop.getFullName;
+console.log(test());
+```
+解释如下：
+```js
+obj.prop.getFullName()这里this指向obj.prop，故
+console.log(obj.prop.getFullName());//'c'
+test = obj.prop.getFullName;此处this指向window，故
+console.log(test());//'a'
+```
+## 20、如下代码输出是什么
+```js
+var num = 1;
+var myObject = {
+    num: 2,
+    add: function() {
+        this.num = 3;
+        (function() {
+            console.log(this.num);
+            this.num = 4;
+        })();
+        console.log(this.num);
+    },
+    sub: function() {
+        console.log(this.num)
+    }
+}
+myObject.add();
+console.log(myObject.num);
+console.log(num);
+var sub = myObject.sub;
+sub();
+```
+解释如下：
+```js
+var num = 1;
+var myObject = {
+    num: 2,
+    add: function() {
+        this.num = 3;
+        (function() {
+            //此时this指向window，故值为1
+            console.log(this.num);
+            //此时window.num = 4
+            this.num = 4;
+        })();
+        //此处this为myObject，故this.num=3
+        console.log(this.num);
+    },
+    sub: function() {
+        console.log(this.num)
+    }
+}
+myObject.add();//1，3
+console.log(myObject.num);//3
+console.log(num);//4
+//此处this指向window
+var sub = myObject.sub;
+sub();//4
+```
+## 21、如下代码输出的是什么
+```js
+setTimeout(function(){
+    console.log(1)
+}, 0)
+new Promise(function executor(resolve){
+    console.log(2);
+    for(var i=0;i<100;i++){
+        i==99 && resolve();
+    }
+    console.log(3);
+}).then(function(){
+    console.log(4);
+});
+console.log(5);
+```
+解释如下：
+```js
+setTimeout 和 setInterval的运行机制是将指定的代码移出本次执行，等到下一轮 Event Loop 时，再检查是否到了指定时间。如果到了，就执行对应的代码；如果不到，就等到再下一轮 Event Loop时重新判断。
+这意味着，setTimeout指定的代码，必须等到本次执行的所有同步代码都执行完，才会执行。
+故最后输出1
+new Promise是立即执行，先打印2，3，然后5，再执行then打印4，最后是1
+故结果为：
+2，3，5，4，1
+```
