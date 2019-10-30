@@ -808,6 +808,34 @@ console.log(obj.name);//liu
 1、可以简单的认为模块化和组件化是工程化的表现形式
 2、JS模块化方案很多有AMD/CommonJS/UMD/ES6 Module等,CSS模块化开发大多是在less、sass、stylus
 ```
+es6带来了语言原生的模块化方案：
+```js
+const methodOne = params => {
+    console.log(params)
+}
+const methodTwo = params => {
+    console.log(params)
+}
+// 导出方式 1
+export default {
+    methodOne,
+    methodTwo
+}
+// 导出方式 2 
+export {
+    methodOne,
+    methodTwo
+}
+```
+```js
+// 引入方式 1 对应导出方式 1
+import module from './module'
+module.methodOne();
+
+// 引入方式2 对应导出方式 2
+import { methodOne } from './module'
+methodOne();
+```
 
 #### 前端组件化
 ```js
@@ -926,3 +954,96 @@ new Promise是立即执行，先打印2，3，然后5，再执行then打印4，�
 故结果为：
 2，3，5，4，1
 ```
+
+## 22、vue项目优化的手段有哪些
+```js
+前端方面：
+1、路由懒加载
+2、图片，资源放cdn
+3、页面图片较多进行懒加载
+4、骨架屏方案
+5、采用服务端渲染---nuxt.js
+服务器端：
+开启gzip
+```
+
+## 23、mvc，mvp，mvvm是什么
+#### mvc
+```js
+模型（Model）：数据保存
+视图（View）：用户界面。
+控制器（Controller）：业务逻辑
+```
+![interview-init](./images/bg2015020105.png)
+所有通信都是单向的
+```js
+View 传送指令到 Controller
+Controller 完成业务逻辑后，要求 Model 改变状态
+Model 将新的数据发送到 View，用户得到反馈
+```
+#### mvp
+```js
+1. 各部分之间的通信，都是双向的。
+2. View 与 Model 不发生联系，都通过 Presenter 传递。
+3. View 非常薄，不部署任何业务逻辑，称为"被动视图"（Passive View），即没有任何主动性，而 Presenter非常厚，所有逻辑都部署在那里。
+```
+![interview-init](./images/bg2015020109.png)
+
+#### mvvm
+```js
+View的变动，自动反映在 ViewModel，反之亦然。
+```
+![interview-init](./images/bg2015020110.png)
+
+## 24、vue，jq，react，angular区别，各自优势
+#### jq
+```js
+1、需要频繁操作dom
+2、容易引起重绘和回流，影响页面性能
+```
+#### vue
+```js
+1、mvvm模式，采用虚拟dom不需要频繁操作dom，通过双向绑定，用数据驱动页面变化，页面变化对应数据也发生变化，只需要关注数据层的业务逻辑，而无需关注视图层的更新。可以尽量减少无用的更新操作，提高dom渲染效率。
+2、组件化开发，页面由若干个组建组成，可复用性高。
+3、社区环境好，各类资源文档十分齐全。
+4、通过Object.defineProperty() 方法，监控对数据的操作，从而可以自动触发数据同步。
+```
+
+#### react
+```js
+1、虚拟dom。
+2、一切都是组件，组件实例之间可以嵌套。
+3、使用独特的jsx语法。
+```
+#### angular
+```js
+1、AngularJS的学习成本高，比如增加了Dependency Injection特性，而Vue.js本身提供的API都比较简单、直观。
+2、在性能上，AngularJS依赖对数据做脏检查，所以Watcher越多越慢。
+```
+
+## 25、什么是虚拟dom，优势是什么，存储在哪
+```js
+Virtual DOM 可以理解为一个简单的JS对象，并且最少包含标签名( tag)、属性(attrs)和子元素对象( children)三个属性。
+```
+优势：
+```js
+1、具备跨平台的优势-由于 Virtual DOM 是以 JavaScript 对象为基础而不依赖真实平台环境，所以使它具有了跨平台的能力，比如说浏览器平台、Weex、Node 等。
+
+2、提升渲染性能-Virtual DOM的优势不在于单次的操作，而是在大量、频繁的数据更新下，能够对视图进行合理、高效的更新。
+为了实现高效的DOM操作，一套高效的虚拟DOM diff算法显得很有必要。通过找出本次DOM需要更新的节点来更新，其他的不更新。
+3、是一个js对象，存储在内存中。
+```
+
+## 26、谈谈webpack的理解
+```js
+1、Entry：入口，Webpack 执行构建的第一步将从 Entry 开始，可抽象成输入。
+2、Module：模块，在 Webpack 里一切皆模块，一个模块对应着一个文件。Webpack 会从配置的 Entry 开始递归找出所有依赖的模块。
+3、Chunk：代码块，一个 Chunk 由多个模块组合而成，用于代码合并与分割。
+4、Loader：模块转换器，用于把模块原内容按照需求转换成新内容。
+5、Plugin：扩展插件，在 Webpack 构建流程中的特定时机会广播出对应的事件，插件可以监听这些事件的发生，在特定时机做对应的事情。
+6、Output：打包后文件输出的位置。
+```
+
+## 27、谈谈event loop
+详细戳此👇
+https://juejin.im/post/5c3d8956e51d4511dc72c200
