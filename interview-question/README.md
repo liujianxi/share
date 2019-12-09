@@ -1047,3 +1047,149 @@ Virtual DOM 可以理解为一个简单的JS对象，并且最少包含标签名
 ## 27、谈谈event loop
 详细戳此👇
 https://juejin.im/post/5c3d8956e51d4511dc72c200
+
+## 28、介绍 HTTPS 握手过程
+```js
+1、客户端使用https的url访问web服务器,要求与服务器建立ssl连接
+2、web服务器收到客户端请求后, 会将网站的证书(包含公钥)传送一份给客户端
+3、客户端收到网站证书后会检查证书的颁发机构以及过期时间, 如果没有问题就随机产生一个秘钥
+4、客户端利用公钥将会话秘钥加密, 并传送给服务端, 服务端利用自己的私钥解密出会话秘钥
+5、之后服务器与客户端使用秘钥加密传输
+```
+参考出处：
+https://muyiy.cn/question/network/44.html
+
+## 29、如何防范CSRF攻击，XSS攻击
+
+#### XSS攻击的防范
+```js
+1、HttpOnly 防止劫取 Cookie
+2、输入检查-不要相信用户的所有输入
+3、输出检查-存的时候转义或者编码
+```
+#### CSRF攻击的防范
+```js
+1、验证码
+2、Referer Check
+3、添加token验证
+```
+参考出处：
+https://juejin.im/entry/5b4b56fd5188251b1a7b2ac1
+
+## 30、使用 sort() 对数组 [3, 15, 8, 29, 102, 22] 进行排序，输出结果
+```js
+var arr = [3,15,8,29,102,22]
+```
+a、直接使用sort()方法，默认的排序方法会将数组元素转换为字符串，然后比较字符串中字符的UTF-16编码顺序来进行排序。
+```js
+var brr = arr.sort();
+console.log(brr);//[102,15,22,29,3,8]
+```
+b、sort，可以接收一个函数，返回值是比较两个数的相对顺序的值
+```js
+var brr = arr.sort((a,b)=>a-b);
+console.log(brr);//[3, 8, 15, 22, 29, 102]
+```
+- 返回值大于0 即a-b > 0 ， a 和 b 交换位置
+- 返回值大于0 即a-b < 0 ， a 和 b 位置不变
+- 返回值等于0 即a-b = 0 ， a 和 b 位置不变
+
+## 31、箭头函数与普通函数的区别
+```js
+function data(a,b){
+    return a-b
+};
+
+var data = (a,b)=>a-b;
+```
+a、箭头函数是匿名函数，不能作为构造函数，不能使用new
+```js
+let FunConstructor = () => {
+    console.log('lll');
+}
+
+let fc = new FunConstructor();//报错
+```
+b、箭头函数不绑定arguments，取而代之用rest参数...解决
+```js
+function A(a){
+    console.log(arguments);
+}
+A(1,2,3,4,5,8);  //  [1, 2, 3, 4, 5, 8, callee: ƒ, Symbol(Symbol.iterator): ƒ]
+
+let B = (b)=>{
+    console.log(arguments);
+}
+
+B(2,92,32,32);   // Uncaught ReferenceError：arguments is not defined
+
+let C = (...c) => {
+    console.log(c);
+}
+C(3,82,32,11323);  // [3, 82, 32, 11323]
+```
+c、箭头函数不绑定this，会捕获其所在的上下文的this值，作为自己的this值
+```js
+var obj = {
+    a: 10,
+    b: () => {
+        console.log(this.a); // undefined
+        console.log(this); // Window {postMessage: ƒ, blur: ƒ, focus: ƒ, close: ƒ, frames: Window, …}
+    },
+    c: function() {
+        console.log(this.a); // 10
+        console.log(this); // {a: 10, b: ƒ, c: ƒ}
+    }
+}
+obj.b(); 
+obj.c();
+```
+d、箭头函数通过call()或apply()方法调用一个函数时，只传入了一个参数，对 this 并没有影响。
+```js
+let obj2 = {
+    a: 10,
+    b: function(n) {
+        let f = (n) => n + this.a;
+        return f(n);
+    },
+    c: function(n) {
+        let f = (n) => n + this.a;
+        let m = {
+            a: 20
+        };
+        return f.call(m,n);
+    }
+};
+console.log(obj2.b(1));  // 11
+console.log(obj2.c(1)); // 11
+```
+e、箭头函数没有原型属性
+```js
+var a = ()=>{
+    return 1;
+}
+
+function b(){
+    return 2;
+}
+
+console.log(a.prototype);  // undefined
+console.log(b.prototype);   // {constructor: ƒ}
+```
+
+## 32、简述react的生命周期，数据变化会触发哪些生命周期
+旧版本react的生命周期：
+- componentWillMount 在渲染前调用,在客户端也在服务端。
+
+- componentDidMount : 在第一次渲染后调用，只在客户端。之后组件已经生成了对应的DOM结构，可以通过this.getDOMNode()来进行访问。 如果你想和其他JavaScript框架一起使用，可以在这个方法中调用setTimeout, setInterval或者发送AJAX请求等操作(防止异步操作阻塞UI)。
+
+- componentWillReceiveProps 在组件接收到一个新的 prop (更新后)时被调用。这个方法在初始化render时不会被调用。
+
+- shouldComponentUpdate 返回一个布尔值。在组件接收到新的props或者state时被调用。在初始化时或者使用forceUpdate时不被调用。
+可以在你确认不需要更新组件时使用。
+
+- componentWillUpdate在组件接收到新的props或者state但还没有render时被调用。在初始化时不会被调用。
+
+- componentDidUpdate 在组件完成更新后立即调用。在初始化时不会被调用。
+
+- componentWillUnmount在组件从 DOM 中移除之前立刻被调用。
