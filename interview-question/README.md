@@ -583,7 +583,7 @@ parseInt('1', 0);//'1'
 parseInt('2', 1);//NaN
 parseInt('3', 2);//NaN，由于2进制中没有3
 
-## 9、写出如下代码的打印结果（京东）
+## 9、写出如下代码的打印结果
 ```js
 function changeObjProperty(o) {
     o.siteUrl = "http://www.baidu.com";
@@ -1193,3 +1193,10 @@ console.log(b.prototype);   // {constructor: ƒ}
 - componentDidUpdate 在组件完成更新后立即调用。在初始化时不会被调用。
 
 - componentWillUnmount在组件从 DOM 中移除之前立刻被调用。
+
+数据变化会触发如下生命周期：
+- componentWillReceiveProps()
+- shouldComponentUpdate()
+- componentWillUpdate()
+- render()
+- componentDidUpdate()
