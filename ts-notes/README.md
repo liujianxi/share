@@ -60,7 +60,7 @@ console.log(REN.yao)  //2
 enum REN{
     nan = '男',
     nv = '女',
-    yao= '妖'
+    yao = '妖'
 }
 console.log(REN.yao)  //返回了妖 这个字
 ```
@@ -68,7 +68,7 @@ console.log(REN.yao)  //返回了妖 这个字
 ### any类型
 
 ```ts
-var t: any =10 
+var t: any = 10 
 t = "jspang"
 t = true
 console.log(t)  //true
@@ -144,7 +144,7 @@ console.log(x[5].toString()); // Error, Property '5' does not exist on type '[st
 
 ```ts
 function searchXiaoJieJie(age: number): string{
-    return '找到了'+age+'岁的小姐姐' 
+    return '找到了' + age + '岁的小姐姐' 
 }
 var age: number = 18
 var result: string = searchXiaoJieJie(age)
@@ -186,7 +186,7 @@ console.log(result)
 有默认参数就更好理解了，就是我们不传递的时候，他会给我们一个默认值，而不是undefined了
 
 ```ts
-function searchXiaoJieJie2(age: number=18, stature: string='大胸'): string{
+function searchXiaoJieJie2(age: number = 18, stature: string = '大胸'): string{
 
     let yy: string = ''
     yy = '找到了' + age + '岁'
@@ -209,7 +209,7 @@ console.log(result)
 function searchXiaoJieJie3(...xuqiu: string[]): string{
 
     let  yy: string = '找到了'
-    for (let i =0; i<xuqiu.length; i++){
+    for (let i = 0; i < xuqiu.length; i++){
         yy = yy + xuqiu[i]
         if (i < xuqiu.length){
             yy = yy+ '、'
@@ -231,7 +231,7 @@ console.log(result)
 函数声明法创建函数是最常用的函数定义法。使用function关键字和函数名去定义一个函数。
 
 ```ts
-function add(n1:number,n2:number):number{
+function add(n1: number, n2: number): number{
     return n1+n2
 }
 ```
@@ -241,7 +241,7 @@ function add(n1:number,n2:number):number{
 函数表达式法是将一个函数赋值给一个变量，这个变量名就是函数名。通过变量名就可以调用函数了。这种方式定义的函数，必须在定义之后，调用函数。下面例子中等号右边的函数没有函数名，称为匿名函数。
 
 ```ts
-var add = function(n1: number,n2: number): number{
+var add = function(n1: number, n2: number): number{
     return n1 + n2
 }
 
@@ -293,13 +293,13 @@ console.log(yangzi)
 ### 全局变量和局部变量重名
 
 ```ts
-var yangzi:string = '刘德华'
+var yangzi: string = '刘德华'
 
-function zhengXing():void{
-    console.log('技术胖整形成了'+yangzi+'的样子')
-    var yangzi:string = '马德华'
+function zhengXing(): void{
+    console.log('技术胖整形成了' + yangzi + '的样子')
+    var yangzi: string = '马德华'
 
-    console.log('技术胖整形成了'+yangzi+'的样子')
+    console.log('技术胖整形成了' + yangzi + '的样子')
 }
 zhengXing()
 console.log(yangzi)
@@ -316,14 +316,13 @@ console.log(yangzi)
 产生这个结果的原因就是变量提升，他的真实代码是这样的：
 
 ```ts
-var yangzi:string = '刘德华'
+var yangzi: string = '刘德华'
 
 function zhengXing():void{
-    var  yangzi:string 
-    console.log('技术胖整形成了'+yangzi+'的样子')
+    var  yangzi: string 
+    console.log('技术胖整形成了' + yangzi + '的样子')
     yangzi = '马德华'
-
-    console.log('技术胖整形成了'+yangzi+'的样子')
+    console.log('技术胖整形成了' + yangzi + '的样子')
 }
 zhengXing()
 console.log(yangzi)
@@ -341,8 +340,8 @@ function zhengXing(): void{
         console.log('技术胖整形成了' + yangzib + '的样子')
    }
 
-    console.log('技术胖整形成了'+yangzia+'的样子')
-    //console.log('技术胖整形成了'+yangzib+'的样子')  //找不到变量yangzib
+    console.log('技术胖整形成了' + yangzia + '的样子')
+    //console.log('技术胖整形成了' + yangzib + '的样子')  //找不到变量yangzib
 }
 zhengXing()
 ```
@@ -454,7 +453,7 @@ console.log(d)
 #### 2、传递表示年月日时分秒的变量
 
 ```ts
-let d:Date = new Date(year,month,day,hours,minutes,seconds,ms);
+let d: Date = new Date(year, month, day, hours, minutes, seconds, ms);
 ```
 - year 表示年份，4位数字。
 - month表示月份，数值是0(1月)~11(12月)之间的整数。
@@ -512,21 +511,21 @@ jiejie.say()
 
 ```ts
 class XiaoJieJie2 {
-    public sex: string;
-    protected name: string;
-    private age: number;
-    public constructor(sex: string, name: string, age: number) {
-        this.sex = sex;
-        this.name = name;
-        this.age = age;
-    }
-    public sayHello() {
-        console.log('小哥哥好');
-    }
+	public sex: string;
+	protected name: string;
+	private age: number;
+	public constructor(sex: string, name: string, age: number) {
+		this.sex = sex;
+		this.name = name;
+		this.age = age;
+	}
+	public sayHello() {
+		console.log('小哥哥好');
+	}
 
-    protected sayLove() {
-        console.log('我爱你');
-    }
+	protected sayLove() {
+		console.log('我爱你');
+	}
 }
 
 var jiejie2: XiaoJieJie2 = new XiaoJieJie2('女', '热巴', 22);
@@ -560,17 +559,17 @@ man.sex='女'  //报错
 
 ```ts
 class Jspang {
-    public name: string;
-    public age: number;
-    public skill: string;
-    constructor(name: string, age: number, skill: string) {
-        this.name = name;
-        this.age = age;
-        this.skill = skill;
-    }
-    public interest() {
-        console.log('找小姐姐');
-    }
+	public name: string;
+	public age: number;
+	public skill: string;
+	constructor(name: string, age: number, skill: string) {
+		this.name = name;
+		this.age = age;
+		this.skill = skill;
+	}
+	public interest() {
+		console.log('找小姐姐');
+	}
 }
 
 let jspangObj: Jspang = new Jspang('技术胖', 18, 'web');
@@ -581,10 +580,10 @@ jspangObj.interest();
 
 ```ts
 class JsShuai extends Jspang {
-    public xingxiang: string = '帅气';
-    public zhuangQian() {
-        console.log('一天赚了一个亿');
-    }
+	public xingxiang: string = '帅气';
+	public zhuangQian() {
+		console.log('一天赚了一个亿');
+	}
 }
 
 let shuai = new JsShuai('技术帅', 5, '演讲');
@@ -598,14 +597,14 @@ shuai.zhuangQian();
 
 ```ts
 class JsShuai extends Jspang {
-    public xingxiang: string = '帅气';
-    public interest() {
-        super.interest();
-        console.log('建立电商平台');
-    }
-    public zhuangQian() {
-        console.log('一天赚了一个亿');
-    }
+	public xingxiang: string = '帅气';
+	public interest() {
+		super.interest();
+		console.log('建立电商平台');
+	}
+	public zhuangQian() {
+		console.log('一天赚了一个亿');
+	}
 }
 ```
 
@@ -615,8 +614,8 @@ class JsShuai extends Jspang {
 
 ```ts
 interface Husband {
-    sex: string;
-    interest: string;
+	sex: string;
+	interest: string;
 }
 let myhusband: Husband = { sex: '男', interest: '看书、作家务' };
 console.log(myhusband);
@@ -627,9 +626,9 @@ console.log(myhusband);
 
 ```ts
 interface Husband {
-    sex: string;
-    interest: string;
-    maiBaoBao?: Boolean;
+	sex: string;
+	interest: string;
+	maiBaoBao?: Boolean;
 }
 let myhusband: Husband = { sex: '男', interest: '看书、作家务', maiBaoBao: true };
 console.log(myhusband);
@@ -639,14 +638,14 @@ console.log(myhusband);
 
 ```ts
 interface SearchMan {
-    (source: string, subString: string): boolean;
+	(source: string, subString: string): boolean;
 }
 
 let mySearch: SearchMan;
 
 mySearch = function(source: string, subString: string): boolean {
-    let flag = source.search(subString);
-    return flag != -1;
+	let flag = source.search(subString);
+	return flag != -1;
 };
 
 console.log(mySearch('高、富、帅、德', '胖'));
@@ -658,24 +657,25 @@ console.log(mySearch('高、富、帅、德', '胖'));
 
 ```ts
 namespace shuaiGe {
-    export class Dehua {
-        public name: string = '刘德华';
-        talk() {
-            console.log('我是帅哥刘德华');
-        }
-    }
+	export class Dehua {
+		public name: string = '刘德华';
+		talk() {
+			console.log('我是帅哥刘德华');
+		}
+	}
 }
 
 namespace bajie {
-    export class Dehua {
-        public name: string = '马德华';
-        talk() {
-            console.log('我是二师兄马德华');
-        }
-    }
+	export class Dehua {
+		public name: string = '马德华';
+		talk() {
+			console.log('我是二师兄马德华');
+		}
+	}
 }
 
 let dehua1: shuaiGe.Dehua = new shuaiGe.Dehua();
 let dehua2: shuaiGe.Dehua = new bajie.Dehua();
 dehua1.talk();
+
 ```
