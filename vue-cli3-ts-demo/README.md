@@ -314,7 +314,7 @@ export default {
 export default {
   props: {
     msg: {
-      type: Number
+      type: String
     }
   }
 }
