@@ -268,7 +268,7 @@ export default class HelloWorld extends Vue {
 </style>
 ```
 
-`vue-property-decorator`是什么呢，文档[在这](https://github.com/kaorun343/vue-property-decorator)，它提供了函数<strong> 装饰器修饰符 <strong>语法
+`vue-property-decorator`是什么呢，文档[在这](https://github.com/kaorun343/vue-property-decorator)，它提供了函数<strong> 装饰器修饰符 </strong>语法
 
 从官方文档中可看到
 
