@@ -181,10 +181,10 @@ module.exports = {
     loaderOptions: {
       // 给 sass-loader 传递选项
       sass: {
-          // @/ 是 src/ 的别名
-          // 所以这里假设你有 `src/variables.sass` 这个文件
-          // 注意：在 sass-loader v7 中，这个选项名是 "data"
-          prependData: `@import "~@/variables.sass"`
+        // @/ 是 src/ 的别名
+        // 所以这里假设你有 `src/variables.sass` 这个文件
+        // 注意：在 sass-loader v7 中，这个选项名是 "data"
+        prependData: `@import "~@/variables.sass"`
       },
       // 默认情况下 `sass` 选项会同时对 `sass` 和 `scss` 语法同时生效
       // 因为 `scss` 语法在内部也是由 sass-loader 处理的
@@ -252,7 +252,7 @@ module.exports = {
 <!-- src/components/HelloWorld.vue -->
 <template>
   <div class="hello">
-      <h1>{{ msg }}</h1>
+    <h1>{{ msg }}</h1>
   </div>
   ...
 </template>
@@ -289,13 +289,13 @@ export default class YourComponent extends Vue {
 export default {
   props: {
     propA: {
-        type: Number
+      type: Number
     },
     propB: {
-        default: 'default value'
+      default: 'default value'
     },
     propC: {
-        type: [String, Boolean]
+      type: [String, Boolean]
     }
   }
 }
@@ -314,7 +314,7 @@ export default {
 export default {
   props: {
     msg: {
-        type: Number
+      type: Number
     }
   }
 }
